@@ -150,6 +150,3 @@ def bin2hex(hex0, sw):
        else:
            hex0.next = "0001110"
     return comb
-
-DIG0 = tuple(i for i in range(10) for i in range(10))
-DIG1 = tuple(i for i in range(10) for _ in range(10))
