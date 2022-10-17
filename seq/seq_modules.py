@@ -20,22 +20,24 @@ def dff(q, d, clk, rst):
 
 @block
 def contador(leds, clk, rst):
+    tmp = Signal(modbv(0)[10:])
 
     @always_seq(clk.posedge, reset=rst)
     def seq():
-        pass
+        tmp.next = tmp + 1
+        leds.next = tmp
 
     return instances()
 
-
 @block
-def blinkLed(led, clk, rst):
+def blinkLed(led, time_seq, clk, rst):
     cnt = Signal(intbv(0)[32:])
     l = Signal(bool(0))
 
     @always_seq(clk.posedge, reset=rst)
     def seq():
-        if cnt < 25000000:
+        # if cnt < 25000000:
+        if cnt < time_seq * 50000:
             cnt.next = cnt + 1
         else:
             cnt.next = 0
